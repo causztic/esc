@@ -1,0 +1,63 @@
+Cohort Question 1
+SingleThreadWebServer.java
+Threads	Time (ms)
+10		45
+100		376
+1000	1572
+
+ThreadPerTaskWebServer.java
+Threads	Time (ms)
+10		56
+100		190
+1000	2073
+
+Cohort Question 2
+ExecutorWebServer.java
+Threads	Time (ms)
+10		38
+100		168
+1000	962
+
+N = number of CPUs
+U = target CPU utilization
+W/C ratio of wait time to compute time
+
+Cohort Question 3
+M = N * U * (1 + W/C)
+
+N = 8 because my system has 8 cores,
+U = 0.38 (38%) is the number we got from task manager while running the java process.
+
+M = 4, Time = 8032, 7933, 8010
+M = 5, Time = 5173, 5141, 5291
+M = 8, Time = 5125, 5354, 5201
+M = 12, Time = 5182, 5178, 5292
+M = 16, Time = 5267, 5206, 5195
+
+Best M = 5, 5/8/0.38 = 1 + W/C
+1.64473 - 1 = W/C
+W/C ~= 2/3
+
+Cohort Exercise 5
+1/(F+(1-F)/N)
+N,F			Speedup
+10,10%		1/(0.1+(1-0.1)/10) = 5.26
+100,10%		1/(0.1+(1-0.1)/100) = 9.17
+inf,10%		1/(0.1+(1-0.1)/inf) = 10
+10,25%		1/(0.25+(1-0.25)/10) = 2.26
+100,25%		1/(0.25+(1-0.25)/100) = 3.88
+inf,25%		1/(0.25+(1-0.25)/inf) = 4
+
+Cohort Exercise 7
+For the lock-based counter a single lock is used for all the threads, vs the non-blocking
+increment of atomic operations from AtomicInteger. This results in a higher throughput for 
+the atomic version vs the lock based version.
+
+number of threads: 32	Atomic Total Time: 12076147	Lock Total Time: 60665458
+number of threads: 42	Atomic Total Time: 14704350	Lock Total Time: 57637165
+number of threads: 52	Atomic Total Time: 12472194	Lock Total Time: 30999187
+number of threads: 62	Atomic Total Time: 16001596	Lock Total Time: 35596651
+number of threads: 72	Atomic Total Time: 18294499	Lock Total Time: 43947619
+number of threads: 82	Atomic Total Time: 20933980	Lock Total Time: 42444230
+number of threads: 92	Atomic Total Time: 25418798	Lock Total Time: 46309143
+

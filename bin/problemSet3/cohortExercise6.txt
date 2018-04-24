@@ -1,0 +1,51 @@
+Write down 6 test case for an email client
+Write one test for checking successful delivery and five different tests with the
+intention to make the delivery fail.
+
+private EmailServer server;
+private EmailAddress email;
+
+@Before
+public void setServer(){
+	server = new EmailServer("mail.sutd.edu.sg", "imap.sutd.edu.sg");
+	email = new EmailAddress("me@mymail.sutd.edu.sg");
+}
+
+@Test
+public void assertPass(){
+	// It should send with valid credentials
+	boolean delivery = email.sendEmail("Hello World", "email@email.com");
+	assertTrue(delivery);
+}
+
+@Test
+public void sendWithWrongServer(){
+	server.setOutgoingServer("asdf.sutd.notfound.sg");
+	boolean delivery = email.sendMail("Hello World", "email@email.com");
+	assertFalse(delivery);
+}
+
+@Test
+public void sendWithNoSubject(){
+	assertFalse(email.sendMail("", "email@email.com"));
+}
+
+@Test 
+public void sendWithWrongEmail(){
+	EmailAddress wrongEmail = new EmailAddress("notfound@notfound.com");
+	boolean delivery = email.sendMail("Hello World", "email@email.com");
+	assertFalse(delivery);
+}
+
+@Test
+public void sendToNonExistentRecipient(){
+	boolean delivery = email.sendMail("Hello World", "notfound@notfound.com");
+	assertFalse(delivery);
+}
+
+@Test
+public void sendToInvalidEmail(){
+	boolean delivery = email.sendMail("Hello World", "asdf.invalidemail");
+	assertFalse(delivery);
+}
+
